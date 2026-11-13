@@ -1,15 +1,16 @@
 # Watching the migration while it ran
 
-Most days, I was the person watching the migration move through large
-production deployments. I kept an eye on how many Elasticsearch indices
-had been processed, records per index and per deployment, transfer speed,
-throughput, and application errors.
+I was accountable for the Elasticsearch-to-ADLS download job and owned that
+flow. That included keeping it moving across large production deployments
+and watching how many Elasticsearch indices had been processed, records per
+index and per deployment, transfer speed, throughput, and application
+errors.
 
-There were long-running deployments where I needed to stay close to the
-progress. Sometimes I chose the office gym instead of the home gym so I
-could check the dashboard between sets and investigate an error as soon as
-it appeared. It's a small detail, but I remember it because monitoring the
-migration wasn't something I did only during a scheduled check.
+There were long-running deployments where I stayed close to the progress.
+Sometimes I chose the office gym instead of the home gym so I could check the
+dashboard between sets and investigate an error as soon as it appeared. It's
+a small detail, but I remember it because owning the flow meant staying
+connected to how it was running.
 
 Azure Storage Table heartbeats and job status helped me see whether work was
 still moving. When the centralized logs were slow, the
