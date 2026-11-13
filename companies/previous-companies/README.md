@@ -26,7 +26,3 @@ issues in real time.
 I was a Software Engineer at Accolite from September to December 2020. One
 piece of work I remember was automating image synchronization across
 distributed, multi-region server clusters.
-
-I've also debugged production issues involving Azure Event Hubs. I didn't
-build event-driven workflows from scratch; the part I remember is
-troubleshooting them when they behaved unexpectedly.
