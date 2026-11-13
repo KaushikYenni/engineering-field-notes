@@ -15,6 +15,3 @@ Azure Storage Table heartbeats and job status helped me see whether work was
 still moving. When the centralized logs were slow, the
 [error-message field I added to the table](migration-error-visibility.md)
 gave me another way to find out what had happened.
-
-I remember the progress signals better than the exact rules for calling a
-job stale or the full restart and recovery process.

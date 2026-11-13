@@ -12,7 +12,7 @@ In the later role I worked on an insurance-product rule engine, adding
 operators and nested conditions so products could be filtered and
 notifications scheduled more flexibly. I also remember debugging a production
 SQS issue where a message returned five minutes after it had already been
-processed. I think that incident was at Expedia; the
+processed. I debugged the issue at Expedia; the
 [story is here](../../stories/sqs-five-minutes.md).
 
 ## Sandvine

@@ -14,6 +14,3 @@ I used this approach hundreds of times in lower environments to find
 failures, troubleshoot deployments, and get migration instances running
 again. It was a small change, but it shortened the distance between "the job
 stopped" and "I know why."
-
-I don't know how much time it saved overall. I also don't remember exactly
-which fields connected an error to a particular job.

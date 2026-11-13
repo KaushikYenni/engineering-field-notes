@@ -24,8 +24,7 @@ per deployment, and six in a few less common ones.
 
 Throughput was around 12–18 million records per hour per instance. Large
 indices often held 300–400 million records and took one or two days to
-process. For example, I remember splitting a month's work into roughly four
-slices. The approach let the migration keep moving through restarts. Some
-duplicates could still happen in edge cases; the downstream storage-to-Kusto
-load path already had deduplication. That was existing pipeline behavior,
-not something I built for this migration.
+process. For example, I split a month's work into roughly four slices. The
+approach let the migration keep moving through restarts. Some duplicates
+could still happen in edge cases; the downstream storage-to-Kusto load path
+already had deduplication.

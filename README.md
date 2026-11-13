@@ -29,5 +29,4 @@ problems, odd details, and fixes I still remember.
 - [The SQS message that came back five minutes later](stories/sqs-five-minutes.md)
 
 I keep company source code, customer data, credentials, internal links, and
-access details out of these notes. When I talk about a project-wide result, I
-try to distinguish it from the part I personally worked on.
+access details out of these notes.
