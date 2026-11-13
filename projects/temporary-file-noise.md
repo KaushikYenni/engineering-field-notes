@@ -14,6 +14,16 @@ rollout. The important decision was to make the promise narrow: reduce
 specific, well-understood temporary-file noise, not claim that every
 system-looking event would disappear.
 
+```mermaid
+flowchart LR
+    Activity[Endpoint activity] --> Gate{Tenant opted in?}
+    Gate -->|No| Normal[Existing processing]
+    Gate -->|Yes| Pattern{Matches scoped rename/delete pattern?}
+    Pattern -->|No| Normal
+    Pattern -->|Yes| Suppress[Suppress from sink and scoring]
+    Activity -. "separate raw-data path" .-> Sequence[Sequence detection]
+```
+
 ## Finding a useful boundary
 
 I started by looking at the customer activity data and identifying which

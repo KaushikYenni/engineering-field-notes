@@ -6,6 +6,21 @@ ADLS for the next stage of the migration. A run could span many indices and
 last for days, so I watched an internal production dashboard to answer a
 simple question: was each deployment still making useful progress?
 
+```mermaid
+flowchart LR
+    ES[Elasticsearch] --> Fetch[Fetch]
+    Fetch --> Parse[Parse]
+    Parse --> Partition[Partition]
+    Partition --> ADLS[Write to ADLS]
+    Fetch -. "read time and count" .-> Dashboard[Production dashboard]
+    Parse -. "stage timing" .-> Dashboard
+    Partition -. "stage timing" .-> Dashboard
+    ADLS -. "files, throughput, errors" .-> Dashboard
+    Dashboard --> Decision{Moving or stuck?}
+    Decision -->|Moving| Monitor[Keep watching progress]
+    Decision -->|Stuck| Investigate[Investigate the failing stage]
+```
+
 I tracked completed indices, records read and saved, files written, transfer
 rate, and application errors. The dashboard also let me compare time spent
 fetching from Elasticsearch with parsing, partitioning, and writing to

@@ -3,6 +3,20 @@
 At Expedia, I debugged a production bug where a message was processed and
 then showed up again exactly five minutes later.
 
+```mermaid
+sequenceDiagram
+    participant Worker
+    participant QueueA as Intended queue
+    participant QueueB as Misconfigured delete target
+    Worker->>QueueA: Receive message
+    QueueA-->>Worker: Message and receipt handle
+    Worker->>QueueB: Delete using receipt handle
+    QueueB-->>Worker: Error
+    Note over QueueA: Message hidden for five-minute visibility timeout
+    QueueA-->>Worker: Message becomes visible again
+    Note over Worker,QueueA: After diagnosis, configure deletion for QueueA
+```
+
 I found the problem through an error in Splunk. I followed that clue into the
 code and configuration and found that the consumer was polling the right SQS
 queue, but a misplaced environment variable sent its delete request to a

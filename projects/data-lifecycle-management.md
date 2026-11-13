@@ -31,6 +31,24 @@ Those operations had different triggers and failure modes, but shared the
 same engineering concerns: durable progress, retry behavior, observability,
 and data placement across clusters.
 
+```mermaid
+flowchart LR
+    Cases[Active-case user signal] --> Reindex[Daily reindex coordinator]
+    Reindex <--> UserState[Durable per-user state]
+    Reindex --> Copy[Kusto copy operation]
+    Copy --> LongTerm[Long-retention data]
+
+    Events[Deletion events] --> Intake[Event Hub intake]
+    Intake --> Requests[Durable purge requests]
+    Requests --> Purge[Daily purge coordinator]
+    Purge --> Monitor[Track Kusto operation IDs]
+    Monitor --> Normal[Normal-retention data]
+    Monitor --> LongTerm
+
+    Pair[Primary and paired clusters] -. "separate operation state" .-> Copy
+    Pair -.-> Monitor
+```
+
 ## Reindexing into long retention
 
 The reindex workflow ran daily. It read the active-case user list and the

@@ -6,6 +6,22 @@ Large indices could take a day or two to finish. Our first approach used
 sliced scrolls so several readers could fetch different parts of an index at
 once.
 
+```mermaid
+flowchart LR
+    subgraph Scroll["Sliced scroll"]
+        Start[Open scroll context] --> Page1[Read page]
+        Page1 --> NodeRestart[Owning ES node restarts]
+        NodeRestart --> Lost[Scroll context is lost]
+        Lost --> Retry[Retry cannot restore it]
+    end
+    subgraph SearchAfter["search_after"]
+        Query[Normal sorted query] --> Page[Process page]
+        Page --> Cursor[Keep last sort values]
+        Cursor --> Next[Next query with search_after]
+        Next --> Page
+    end
+```
+
 The scroll contexts lived on Elasticsearch nodes. When one of those nodes
 restarted, a request could fail with HTTP 500 or
 `search_context_missing`; retrying the same scroll ID could not restore a

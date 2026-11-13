@@ -36,13 +36,17 @@ Kusto.
 
 For existing data, the path was:
 
-```text
-Elasticsearch
-    -> Download Job
-    -> ADLS Parquet files
-    -> Spark transformation
-    -> Kusto ingestion
-    -> Kusto queries
+```mermaid
+flowchart LR
+    ES[Elasticsearch] --> DJ[Download Job]
+    DJ --> ADLS[ADLS Parquet files]
+    ADLS --> Spark[Spark transformation]
+    Spark --> Kusto[Kusto ingestion and queries]
+    Live[Live activity] --> ES
+    Live --> Kusto
+    ES --> Compare[Compare data and query results]
+    Kusto --> Compare
+    Compare --> Cutover[Cut over after validation]
 ```
 
 ADLS was a deliberate boundary between extraction and the downstream work.
@@ -86,6 +90,22 @@ when the writers fell behind, backpressure slowed the readers. A producer or
 consumer failure failed the job rather than letting a partial index look
 complete.
 
+```mermaid
+flowchart LR
+    subgraph Read["Elasticsearch readers"]
+        R1[Reader 1]
+        R2[Reader 2]
+        R3[Reader 3]
+        R4[Reader 4]
+    end
+    Read --> Queue[Bounded queue]
+    Queue --> W1[ADLS writer]
+    Queue --> W2[ADLS writer]
+    Queue --> W3[...]
+    Queue --> W12[ADLS writer 12]
+    Queue -. "backpressure when full" .-> Read
+```
+
 I added operational controls alongside the data path: durable job state in
 an Azure Storage Table, pause and resume, automatic reclaim of abandoned
 work, configurable concurrency and retry settings, and the ability to target
@@ -96,8 +116,8 @@ to inspect and compare what had happened.
 
 The durable checkpoint advanced only after an entire index completed. That
 protected finished indices from being repeated automatically, but an
-interrupted index could be replayed. I chose that simple, visible recovery
-boundary rather than persisting a page cursor in durable state.
+interrupted index could be replayed. The implementation kept recovery at
+that index boundary rather than persisting each page cursor.
 
 ### Keeping pagination alive
 
@@ -203,6 +223,17 @@ behavior. Matching row counts was not enough: mapping and representation
 differences could still change what a customer saw.
 
 When a comparison found a mismatch, we first worked out where it came from:
+
+```mermaid
+flowchart TD
+    Check[Parity check finds a mismatch] --> Locate{Which stage is wrong?}
+    Locate -->|ES extraction incomplete| Rerun[Replay affected ES window]
+    Locate -->|ADLS files are correct| Transform[Replay from ADLS through Spark]
+    Locate -->|Ingestion or query behavior| Fix[Fix Kusto mapping or query]
+    Rerun --> Verify[Compare counts and customer-visible results]
+    Transform --> Verify
+    Fix --> Verify
+```
 
 - If extraction from ES was incomplete, rerun the affected index or time
   window through the Download Job.
