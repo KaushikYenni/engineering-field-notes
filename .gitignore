@@ -1,0 +1,12 @@
+# Private notes, scratch material, and credentials do not belong in this repository.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pdf
+*.docx
+*.xlsx
+*.xls
+*.zip
+.DS_Store
