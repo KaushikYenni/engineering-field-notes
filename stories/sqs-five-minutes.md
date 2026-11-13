@@ -1,8 +1,7 @@
 # The SQS message that came back five minutes later
 
-I remember a production bug where a message was processed and then showed up
-again exactly five minutes later. I think this was at Expedia, but I want to
-confirm the product area before I state that as fact.
+At Expedia, I debugged a production bug where a message was processed and
+then showed up again exactly five minutes later.
 
 I found the problem through an error in Splunk. I followed that clue into the
 code and configuration and found that the consumer was polling the right SQS
