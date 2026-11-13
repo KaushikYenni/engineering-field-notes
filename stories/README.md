@@ -1,7 +1,6 @@
 # Stories from production
 
-These are the incidents and little engineering moments I remember best. Some
-have a clear beginning and fix; others stop where my memory stops.
+These are the incidents and little engineering moments I remember best.
 
 - [When Elasticsearch forgot my scroll context](elasticsearch-scroll-context.md)
 - [Making migration errors visible sooner](migration-error-visibility.md)
