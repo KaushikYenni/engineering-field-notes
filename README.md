@@ -1,7 +1,7 @@
 # Engineering Field Notes
 
-This is a collection of the engineering stories I want to share: production
-problems, odd details, and fixes I still remember.
+This is a collection of the engineering stories I remember: production
+problems, odd details, and fixes.
 
 ## Start here
 
@@ -15,7 +15,7 @@ problems, odd details, and fixes I still remember.
 
 ## Projects
 
-- [Moving a global data estate from Elasticsearch to Kusto](projects/elasticsearch-to-kusto-migration.md)
+- [Migrating 500 billion records from Elasticsearch to Kusto](projects/elasticsearch-to-kusto-migration.md)
 - [Keeping investigation data around for as long as it matters](projects/data-lifecycle-management.md)
 - [Reducing temporary-file noise without losing useful signals](projects/temporary-file-noise.md)
 - [Spark signal processing](projects/spark-data-processing.md)
