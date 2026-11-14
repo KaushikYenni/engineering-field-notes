@@ -13,10 +13,10 @@ I joined [Expedia Group](../companies/previous-companies/README.md) as a
 Software Development Engineer II in May 2022. I worked on insurance products:
 entry points for Hotels.com, shopping
 orchestration across checkout and post-purchase flows, SOX audits, and
-separating post-purchase and PCI functionality from an existing service. In
-March 2025 I moved into a Software Development Engineer III role, where I
-worked on an insurance-product rule engine with new operators and nested
-conditions.
+separating post-purchase and PCI functionality from an existing service. In March 2025, I was promoted to 
+Software Development Engineer III. In that role, I worked on an insurance-product rule engine, adding 
+new operators and nested conditions.
+
 
 In May 2025 I joined [Microsoft](../companies/microsoft/README.md) as a
 Software Engineer 2 on Purview Insider Risk Management. The work I remember
