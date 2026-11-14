@@ -5,7 +5,7 @@ Insider Risk Management. A lot of my work sat behind the product: moving data
 between systems, keeping investigation data available, and making sure noisy
 activity didn't drown out signals that mattered.
 
-The projects I want to remember are:
+The projects I worked on are:
 
 - [The Elasticsearch-to-Kusto migration](../../projects/elasticsearch-to-kusto-migration.md)
 - [Data lifecycle management](../../projects/data-lifecycle-management.md)
